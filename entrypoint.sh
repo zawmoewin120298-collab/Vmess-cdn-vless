@@ -1,18 +1,9 @@
-FROM alpine:latest
+#!/bin/bash
 
-RUN apk add --no-cache curl unzip bash
+# Railway ကပေးတဲ့ PORT ကိုယူ
+PORT=${PORT:-8080}
 
-# install v2ray
-RUN curl -L -o v2ray.zip https://github.com/v2fly/v2ray-core/releases/latest/download/v2ray-linux-64.zip \
-    && unzip v2ray.zip -d /v2ray \
-    && chmod +x /v2ray/v2ray
+# config ထဲ port replace လုပ်ပြီး run
+sed -i "s/PORT_PLACEHOLDER/${PORT}/g" /v2ray/config.json
 
-WORKDIR /v2ray
-
-COPY config.json /v2ray/config.json
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-ENV PORT=8080
-
-CMD ["/entrypoint.sh"]
+/v2ray/v2ray run -config /v2ray/config.json
