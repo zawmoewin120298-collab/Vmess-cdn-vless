@@ -4,6 +4,7 @@
       "port": 8080,
       "protocol": "vless",
       "settings": {
+        "decryption": "none",
         "clients": [
           {
             "id": "247b91ae-1192-49dc-a426-ebd69ec02078"
@@ -13,7 +14,7 @@
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-          "path": "/vless"
+          "path": "/"
         }
       }
     }
