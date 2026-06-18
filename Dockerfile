@@ -1,14 +1,15 @@
-FROM node:18-alpine
+FROM alpine:latest
 
-WORKDIR /app
+RUN apk add --no-cache curl unzip
 
-COPY package*.json ./
-RUN npm install
+# install v2ray core (or xray if you use)
+RUN curl -L -o v2ray.zip https://github.com/v2fly/v2ray-core/releases/latest/download/v2ray-linux-64.zip \
+    && unzip v2ray.zip -d /v2ray
 
-COPY . .
+WORKDIR /v2ray
 
-ENV PORT=3000
+COPY config.json /v2ray/config.json
 
-EXPOSE 3000
+ENV PORT=8080
 
-CMD ["npm", "start"]
+CMD ["./v2ray", "run", "-config", "/v2ray/config.json"]
