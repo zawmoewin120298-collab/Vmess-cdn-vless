@@ -1,4 +1,4 @@
-name: CI Build Docker
+name: Build and Push Docker Image to GHCR
 
 on:
   push:
@@ -12,5 +12,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build Docker image
-        run: docker build -t my-app .
+        run: |
+          docker build -t ghcr.io/${{ github.repository }}:v1.0.0 .
+
+      - name: Push Docker image
+        run: |
+          docker push ghcr.io/${{ github.repository }}:v1.0.0
