@@ -1,18 +1,14 @@
-FROM alpine:latest
+FROM node:18-alpine
 
-RUN apk add --no-cache curl unzip bash
+WORKDIR /app
 
-# install v2ray
-RUN curl -L -o v2ray.zip https://github.com/v2fly/v2ray-core/releases/latest/download/v2ray-linux-64.zip \
-    && unzip v2ray.zip -d /v2ray \
-    && chmod +x /v2ray/v2ray
+COPY package*.json ./
+RUN npm install
 
-WORKDIR /v2ray
+COPY . .
 
-COPY config.json /v2ray/config.json
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+ENV PORT=3000
 
-ENV PORT=8080
+EXPOSE 3000
 
-CMD ["/entrypoint.sh"]
+CMD ["npm", "start"]
