@@ -1,16 +1,19 @@
-www.true.th {
-    # ဝက်ဘ်ဆိုက်ဖိုင်များရှိရာ နေရာသတ်မှတ်ခြင်း
+:80 {
+    # trueth.kdns.fr နဲ့ ဝင်လာရင် အစ်ကို့ရဲ့ Node Store ဝက်ဘ်ဆိုက်ကို ပုံမှန်အတိုင်း ပြပေးရန်
     root * /usr/share/caddy
     file_server
 
-    # ၁။ VPN ချိတ်ဆက်မှုအတွက် လမ်းကြောင်းကို ခွဲထုတ်ခြင်း
-    # အပြင်ကနေ www.true.th/vless-cdn နဲ့ လာသမျှကို Port 8080 (V2Ray) ဆီ တန်းပို့မည်
+    # ၁။ VPN ချိတ်ဆက်မှု (Path) ဖြစ်တဲ့ /vless-cdn နဲ့ လာသမျှ Request အားလုံးကို
+    # Port 8080 ထဲက V2Ray ဆီ မပို့တော့ဘဲ true.co.th ဆီသို့ အနောက်ကနေ တိုက်ရိုက် လမ်းကြောင်း ပြောင်းညွှန်ပေးရန်
     handle /vless-cdn {
-        reverse_proxy 127.0.0.1:8080
+        reverse_proxy https://true.co.th {
+            header_up Host true.co.th
+        }
     }
 
-    # ၂။ ရိုးရိုး Web ဝင်ကြည့်သူများကိုသာ PHP ဝက်ဘ်ဆိုက်ဆီ ပို့ခြင်း
+    # ၂။ ရိုးရိုး ဝက်ဘ်ဆိုက် လာကြည့်သူများကိုသာ PHP စနစ်ဆီ ပို့ရန်
     handle {
         php_fastcgi 127.0.0.1:9000
     }
 }
+
