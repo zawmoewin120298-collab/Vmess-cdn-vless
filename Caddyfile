@@ -1,10 +1,11 @@
-:80 {
-    # ၁။ VPN ချိတ်ဆက်မှုအတွက် Local V2Ray (Port 8080) ဆီသို့ လွှဲပေးရန်
+# ဒိုမိန်းအမည်အတိုင်း သတ်မှတ်ပါ
+trueth.kdns.fr {
+    # VPN (VLESS) အတွက် လမ်းကြောင်း
     handle /vless-cdn {
         reverse_proxy 127.0.0.1:8080
     }
 
-    # ၂။ Browser ကနေ trueth.kdns.fr ကို လာကြည့်သူများကို True Web ဆီသို့ မောင်းထုတ်ရန်
+    # အခြား Browser ကလာတဲ့သူမှန်သမျှကို True ဝက်ဘ်ဆိုက်ဆီ ချက်ချင်းလွှဲ (Redirect) ပို့ရန်
     handle {
         redir https://www.true.th{uri} permanent
     }
