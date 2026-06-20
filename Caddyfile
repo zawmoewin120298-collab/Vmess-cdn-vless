@@ -1,4 +1,4 @@
-vmess-cdn-vless-production.up.railway.app {
+test.trueth.kdns.fr {
     # WebSocket Traffic ကို V2Ray ဆီ ပို့ခြင်း
     reverse_proxy /ray localhost:8080
 
