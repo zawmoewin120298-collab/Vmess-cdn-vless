@@ -1,7 +1,11 @@
-vpn.yourdomain.com {
-    # WebSocket Traffic ကိုပဲ V2Ray Container ဆီ ပို့ပေးခြင်း
-    reverse_proxy /ray v2ray:8080
+vmess-cdn-vless-production.up.railway.app {
+    # ၁။ WebSocket Traffic ကို V2Ray ဆီ ပို့ပေးခြင်း
+    reverse_proxy /ray localhost:8080
     
-    # ရိုးရိုးဝင်ရင် ဟန်ပြ (Camouflage) အနေနဲ့ standard site တစ်ခုဆီ ပို့ထားနိုင်ပါတယ်
-    reverse_proxy http://nginx
+    # ၂။ ရိုးရိုး Browser ကနေ Domain ကိုပဲ နှိပ်ဝင်ရင် လမ်းလွှဲမယ့် ဟန်ပြ (Camouflage) Site
+    # (nginx အစား အပြင်က တကယ့် site တစ်ခုခုဆီ လှမ်း Proxy လုပ်ထားတာက ပိုစိတ်ချရပါတယ်)
+    # ဥပမာ - cloudflare ရဲ့ မြန်နှုန်းစစ်တဲ့ site ဆီ လမ်းခွဲထားခြင်း
+    reverse_proxy https://speed.cloudflare.com {
+        header_up Host {upstream_hostport}
+    }
 }
