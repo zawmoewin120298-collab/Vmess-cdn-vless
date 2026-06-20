@@ -1,4 +1,4 @@
-http://test.trueth.kdns.fr {
+http://trueth.kdns.fr {
     # ၁။ WebSocket Traffic ကို V2Ray ဆီ ပို့ပေးခြင်း
     reverse_proxy /ray localhost:8080
 
