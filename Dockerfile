@@ -1,22 +1,15 @@
-# ----- Stage 1: V2Ray core ဒေါင်းလုဒ်ဆွဲခြင်း -----
-FROM alpine:latest AS v2ray-builder
-RUN apk add --no-cache curl unzip
-RUN curl -L -o /tmp/v2ray.zip https://github.com/v2fly/v2ray-core/releases/latest/download/v2ray-linux-64.zip \
-    && mkdir -p /v2ray \
-    && unzip /tmp/v2ray.zip -d /v2ray
+FROM jc21/nginx-proxy-manager:latest
 
-# ----- Stage 2: Final Image အဖြစ် Caddy နှင့် ပေါင်းစပ်ခြင်း -----
-FROM caddy:latest
+# Railway ၏ ပတ်ဝန်းကျင်အတွက် လိုအပ်သော ခွင့်ပြုချက်များ ပေးခြင်း
+USER root
 
-ENV XDG_CONFIG_HOME=/tmp/caddy_config
-ENV XDG_DATA_HOME=/tmp/caddy_data
+# Railway က သတ်မှတ်ပေးမည့် Dynamic Port ကို လက်ခံရန်နှင့် 
+# NPM Admin Dashboard ကို Port 81 အစား 7860 (သို့မဟုတ် Railway ပေးသော Port) တွင် Run စေရန်
+ENV PORT=7860
+EXPOSE 7860
 
-COPY --from=v2ray-builder /v2ray /v2ray
-COPY config.json /v2ray/config.json
-COPY Caddyfile /etc/caddy/Caddyfile
+# Docker Storage အတွက် လိုအပ်သော Folder များ ဆောက်ခြင်း
+RUN mkdir -p /data /etc/letsencrypt
 
-# V2Ray ကို အနောက်မှာ အရင်မောင်းပြီး Caddy ကို အရှေ့ကနေ Port 8080 ဖြင့် ဆီးကြိုခိုင်းခြင်း
-CMD /v2ray/v2ray run -config /v2ray/config.json & caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
-
-EXPOSE 8080
-
+# NPM ကို စတင်မောင်းနှင်ရန်
+CMD ["/usr/bin/openresty", "-g", "daemon off;"]
