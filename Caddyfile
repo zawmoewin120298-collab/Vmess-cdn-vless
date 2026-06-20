@@ -1,13 +1,12 @@
 :80 {
-    # ၁။ ဝက်ဘ်ဆိုက်အတွက် Root Folder လမ်းကြောင်း သတ်မှတ်ခြင်း
+    # ၁။ ဝက်ဘ်ဆိုက်အတွက် မနက်ကအတိုင်း ပုံမှန် Root Folder လမ်းကြောင်း
     root * /usr/share/caddy
     file_server
     php_fastcgi 127.0.0.1:9000
 
-    # ၂။ V2Ray/Sing-Box အတွက် လမ်းကြောင်းကို သီးသန့် အပြတ်ခွဲထုတ်ခြင်း
-    # အပြင်ကနေ /vless-cdn ဆိုတဲ့ Path နဲ့ လာမှသာ Port 8080 ထဲက V2Ray ဆီ ပို့ပေးမည်
-    @v2ray_path {
-        path /vless-cdn
+    # ၂။ VPN ချိတ်ဆက်မှုအတွက် Path ကို သီးသန့် အပြတ်ခွဲထုတ်ခြင်း
+    # အပြင်ကနေ /vless-cdn ဆိုတဲ့ လမ်းကြောင်းနဲ့ လာမှသာ Port 8080 (V2Ray) ထဲကို ပို့ပေးမည်
+    handle /vless-cdn {
+        reverse_proxy 127.0.0.1:8080
     }
-    reverse_proxy @v2ray_path 127.0.0.1:8080
 }
