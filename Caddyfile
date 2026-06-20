@@ -1,9 +1,6 @@
-test.trueth.kdns.fr {
+http://test.trueth.kdns.fr {
     # WebSocket Traffic ကို V2Ray ဆီ ပို့ခြင်း
     reverse_proxy /ray localhost:8080
 
-    # ရိုးရိုးဝင်ရင် AIS Site ကို ပြပေးခြင်း
-    reverse_proxy https://www.ais.co.th {
-        header_up Host www.ais.co.th
-    }
-}
+    # ဟန်ပြ Camouflage Site
+    reverse_proxy https://www.ais.co.th
