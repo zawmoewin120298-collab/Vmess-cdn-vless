@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  v2ray:
+    build: . # လက်ရှိနေရာက Dockerfile ကို လှမ်း Build မှာပါ
+    container_name: v2ray_server
+    restart: unless-stopped
+    volumes:
+      - ./config.json:/v2ray/config.json:ro
+    networks:
+      - proxy_net
+
+  caddy:
+    image: caddy:latest
+    container_name: caddy_proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+    networks:
+      - proxy_net
+    depends_on:
+      - v2ray
+
+networks:
+  proxy_net:
+
+volumes:
+  caddy_data:
