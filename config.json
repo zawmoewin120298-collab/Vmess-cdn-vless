@@ -1,30 +1,33 @@
-{
-  "log": {
-    "loglevel": "warning"
-  },
-  "inbounds": [
-    {
-      "port": 8080,
-      "protocol": "vless",
-      "settings": {
-        "decryption": "none",
-        "clients": [
-          {
-            "id": "4ec724ff-cbe7-460e-8f9c-24afe9b21d52"
-          }
-        ]
-      },
-      "streamSettings": {
-        "network": "ws",
-        "wsSettings": {
-          "path": "/vless-cdn"
+"inbounds": [
+  {
+    "port": 8080,
+    "protocol": "vless",
+    "settings": {
+      "clients": [
+        {
+          "id": "4ec724ff-cbe7-460e-8f9c-24afe9b21d52",
+          "encryption": "none"
+        }
+      ],
+      "decryption": "none"
+    },
+    "streamSettings": {
+      "network": "ws",
+      "wsSettings": {
+        "path": "/",
+        "headers": {
+          "Host": "trueth.kdns.fr"
         }
       }
     }
-  ],
-  "outbounds": [
+  }
+],
+"routing": {
+  "rules": [
     {
-      "protocol": "freedom"
+      "type": "field",
+      "inboundTag": [""],
+      "outboundTag": "direct"
     }
   ]
 }
