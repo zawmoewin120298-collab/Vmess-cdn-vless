@@ -3,7 +3,7 @@ http://trueth.kdns.fr {
     reverse_proxy /ray localhost:8080
 
     # ၂။ ရိုးရိုး Browser က ဝင်လာရင် AIS Site ကို အောင်မြင်စွာ လှည့်ပြခြင်း
-    reverse_proxy https://www.ais.co.th {
-        header_up Host www.ais.co.th
+    reverse_proxy https://www.true.th {
+        header_up Host www.true.th
     }
 }
