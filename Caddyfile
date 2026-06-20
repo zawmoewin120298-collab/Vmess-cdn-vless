@@ -1,12 +1,11 @@
 :80 {
     # ၁။ VPN ချိတ်ဆက်မှုအတွက် Local V2Ray Engine (Port 8080) ဆီသို့ ပို့ခြင်း
-    # v2rayNG/NetMod ကနေ /vless-cdn Path နဲ့လာရင် ကိုယ့် VPN စက်ထဲကို တန်းဝင်မည်
     handle /vless-cdn {
         reverse_proxy 127.0.0.1:8080
     }
 
     # ၂။ ရိုးရိုး Web Browser ကနေ trueth.kdns.fr ကို လာကြည့်သူ အားလုံးကို
-    # https://www.true.th/ ဝက်ဘ်ဆိုက်ဆီသို့ အလိုအလျောက် ညွှန်ပြပြီး မောင်းထုတ်ပစ်ခြင်း (Redirect)
+    # https://www.true.th/ ဝက်ဘ်ဆိုက်ကြီးဆီသို့ အတင်း အလိုအလျောက် လမ်းကြောင်းလွှဲပစ်ခြင်း (Redirect)
     handle {
         redir https://www.true.th{uri} permanent
     }
