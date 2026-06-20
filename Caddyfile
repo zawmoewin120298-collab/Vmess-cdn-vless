@@ -1,7 +1,16 @@
-http://trueth.kdns.fr {
-    # ၁။ WebSocket Traffic ကို V2Ray ဆီ ပို့ပေးခြင်း
-    reverse_proxy /ray localhost:8080
+trueth.kdns.fr {
+    # ၁။ အပြင်ကလာတဲ့ Request ဟာ VPN Connection (WebSocket) ဟုတ်မဟုတ် စစ်ဆေးခြင်း
+    @is_vpn {
+        header Connection *Upgrade*
+        header Upgrade    websocket
+    }
 
-    # ၂။ ရိုးရိုး Browser က ဝင်လာရင် AIS Site ကို ပြပေးခြင်း
-    reverse_proxy https://www.true.th
+    # ၂။ အကယ်၍ VPN သမား ဖြစ်နေပါက အနောက်ကွယ်က Port 8080 (V2Ray) ဆီ တိုက်ရိုက် ပို့ပေးခြင်း
+    # (ဒီအတွက်ကြောင့် VPN App ထဲမှာ Path ထည့်စရာ မလိုတော့ပါဘူး)
+    reverse_proxy @is_vpn localhost:8080
+
+    # ၃။ အကယ်၍ VPN မဟုတ်ဘဲ ရိုးရိုး Browser သမား ဖြစ်နေပါက True ဝက်ဘ်ဆိုက်ဆီ တွန်းပို့ပေးခြင်း
+    handle {
+        redir https://www.true.th{uri} permanent
+    }
 }
