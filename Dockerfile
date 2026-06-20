@@ -15,11 +15,10 @@ COPY --from=v2ray-builder /v2ray /v2ray
 COPY config.json /v2ray/config.json
 COPY Caddyfile /etc/caddy/Caddyfile
 
-# ပြဿနာရှာနေသော Autosave Cache အဟောင်းများကို အတင်းဖျက်ထုတ်ပြီး Caddyfile အသစ်အတိုင်း မောင်းနှင်ရန် Script ပြင်ဆင်ခြင်း
+# Caddy ၏ Memory Cache နှင့် Resume စနစ်ဟောင်းများကို အပြတ်အသတ်ကျော်လွန်ရန် --resume=false ထည့်သွင်းမောင်းနှင်ခြင်း
 RUN echo '#!/bin/sh' > /entrypoint.sh \
     && echo '/v2ray/v2ray run -config /v2ray/config.json &' >> /entrypoint.sh \
-    && echo 'rm -f /config/caddy/autosave.json' >> /entrypoint.sh \
-    && echo 'caddy run --config /etc/caddy/Caddyfile --adapter caddyfile' >> /entrypoint.sh \
+    && echo 'caddy run --config /etc/caddy/Caddyfile --adapter caddyfile --resume=false' >> /entrypoint.sh \
     && chmod +x /entrypoint.sh
 
 EXPOSE 80 443 8080
