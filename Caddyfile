@@ -4,3 +4,4 @@ http://test.trueth.kdns.fr {
 
     # ဟန်ပြ Camouflage Site
     reverse_proxy https://www.ais.co.th
+}
