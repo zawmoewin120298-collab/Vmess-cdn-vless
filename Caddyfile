@@ -1,12 +1,15 @@
-# ဒိုမိန်းအမည်အတိုင်း သတ်မှတ်ပါ
-trueth.kdns.fr {
-    # VPN (VLESS) အတွက် လမ်းကြောင်း
-    handle /vless-cdn {
-        reverse_proxy 127.0.0.1:8080
+http://trueth.kdns.fr {
+    # ၁။ WebSocket Traffic ကို V2Ray ဆီ ပို့ပေးခြင်း
+    # အပြင်ကနေ /ray လမ်းကြောင်းနဲ့လာသမျှကို အထဲက Port 8080 ဆီ ပို့ပါမယ်
+    handle /ray {
+        reverse_proxy localhost:8080
     }
 
-    # အခြား Browser ကလာတဲ့သူမှန်သမျှကို True ဝက်ဘ်ဆိုက်ဆီ ချက်ချင်းလွှဲ (Redirect) ပို့ရန်
+    # ၂။ ရိုးရိုး Browser က ဝင်လာရင် Speedtest (သို့မဟုတ် ပြင်ပ URL) ကို အနောက်ကွယ်ကနေ လှမ်းပြပေးခြင်း
+    # ဒီနေရာမှာ speedtest.net ရဲ့ မူရင်း Host Header ကိုပါ ထည့်ပေးရမှာ ဖြစ်ပါတယ်
     handle {
-        redir https://www.true.th{uri} permanent
+        reverse_proxy https://www.speedtest.net {
+            header_up Host www.speedtest.net
+        }
     }
 }
