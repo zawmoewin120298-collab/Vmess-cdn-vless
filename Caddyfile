@@ -1,7 +1,9 @@
 vmess-cdn-vless-production.up.railway.app {
-    # ၁။ WebSocket Traffic ကို V2Ray ဆီ ပို့ပေးခြင်း
+    # WebSocket Traffic ကို V2Ray ဆီ ပို့ခြင်း
     reverse_proxy /ray localhost:8080
 
-    # ၂။ ရိုးရိုးဝင်ရင် ပြသမယ့် ဟန်ပြ (Camouflage) Site
-    reverse_proxy https://speed.cloudflare.com
+    # ရိုးရိုးဝင်ရင် AIS Site ကို ပြပေးခြင်း
+    reverse_proxy https://www.ais.co.th {
+        header_up Host www.ais.co.th
+    }
 }
