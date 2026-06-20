@@ -1,14 +1,18 @@
-trueth.kdns.fr {
-    # VPN ချိတ်ဆက်မှုများကို Path မခွဲခြားဘဲ အနောက်ကွယ်က Port 8080 ဆီ ပို့ပေးခြင်း
-    reverse_proxy localhost:8080 {
-        header_up Upgrade {http.request.header.Upgrade}
-        header_up Connection {http.request.header.Connection}
+:8080 {
+    # VPN WebSocket Connection ဖြစ်ပါက အတွင်းပိုင်း Port 10000 (V2Ray) ဆီ ပို့ရန်
+    @is_vpn {
+        header Connection *Upgrade*
+        header Upgrade    websocket
     }
+    reverse_proxy @is_vpn localhost:10000
 
-    # Browser သမားများအတွက် True ဝက်ဘ်ဆိုက်အား အစားထိုးပြသပေးခြင်း
+    # Browser သမားများ ဝင်လာပါက True ဝက်ဘ်ဆိုက်အား လမ်းကြောင်းလွှဲပြသခြင်း
     handle {
         reverse_proxy https://www.true.th {
             header_up Host www.true.th
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
             header_up Accept-Encoding identity
         }
     }
