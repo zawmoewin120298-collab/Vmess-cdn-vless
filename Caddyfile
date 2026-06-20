@@ -1,13 +1,13 @@
 trueth.kdns.fr {
-    # ၁။ အပြင်ကလာတဲ့ Request ဟာ VPN Connection (WebSocket) ဖြစ်ပါက Port 8080 (V2Ray) ဆီ ပို့ရန်
+    # ၁။ အပြင်ကလာတဲ့ Request ဟာ VPN WebSocket Connection ဖြစ်ပါက Port 8080 (V2Ray) ဆီ ပို့ရန်
     @is_vpn {
         header Connection *Upgrade*
         header Upgrade    websocket
     }
     reverse_proxy @is_vpn localhost:8080
 
-    # ၂။ ရိုးရိုး Browser သမားများ ဝင်လာပါက True ဝက်ဘ်ဆိုက်အား အနောက်ကွယ်မှ လှမ်းပြပေးခြင်း
-    # (Cloudflare Loop မပတ်စေရန် Header များကို အသေပိတ်ပြီး အစားထိုးပေးရပါသည်)
+    # ၂။ ရိုးရိုး Browser သမားများ ဝင်လာပါက True ဝက်ဘ်ဆိုက်အား အနောက်ကွယ်မှ လှမ်းခေါ်ပြခြင်း
+    # (Cloudflare Loop လုံးဝမပတ်စေရန် Header ကို အသေ သတ်မှတ်ပေးပါသည်)
     handle {
         reverse_proxy https://www.true.th {
             header_up Host www.true.th
@@ -18,3 +18,4 @@ trueth.kdns.fr {
         }
     }
 }
+
