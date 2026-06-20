@@ -3,5 +3,5 @@ http://trueth.kdns.fr {
     reverse_proxy /ray localhost:8080
 
     # ၂။ ရိုးရိုး Browser က ဝင်လာရင် AIS Site ကို ပြပေးခြင်း
-    reverse_proxy https://www.ais.th
+    reverse_proxy https://www.speedtest.net
 }
