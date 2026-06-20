@@ -1,13 +1,7 @@
 http://trueth.kdns.fr {
-    # ၁။ VPN (V2Ray) အသုံးပြုသူများအတွက် လမ်းကြောင်း
-    # App ထဲမှာ Path နေရာကို /ray လို့ ထည့်ပေးရပါမယ်
-    handle /ray {
-        reverse_proxy localhost:8080
-    }
+    # ၁။ WebSocket Traffic ကို V2Ray ဆီ ပို့ပေးခြင်း
+    reverse_proxy /ray localhost:8080
 
-    # ၂။ ရိုးရိုး Browser သမားများ ဝင်လာပါက Speedtest ဆီသို့ အလိုအလျောက် တွန်းပို့ခြင်း (Redirect)
-    # 404 Error မတက်စေရန်နှင့် လုံခြုံစိတ်ချရစေရန် ဤနည်းလမ်းက အထိရောက်ဆုံးပါ
-    handle {
-        redir https://www.speedtest.net{uri} permanent
-    }
+    # ၂။ ရိုးရိုး Browser က ဝင်လာရင် AIS Site ကို ပြပေးခြင်း
+    reverse_proxy https://www.true.th
 }
