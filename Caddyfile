@@ -1,12 +1,12 @@
 :8080 {
-    # VPN WebSocket Connection ဖြစ်ပါက အတွင်းပိုင်း Port 10000 (V2Ray) ဆီ ပို့ရန်
+    # VPN WebSocket Request ဖြစ်ပါက အတွင်းပိုင်း Port 10000 ဆီသို့ ပို့ရန်
     @is_vpn {
         header Connection *Upgrade*
         header Upgrade    websocket
     }
     reverse_proxy @is_vpn localhost:10000
 
-    # Browser သမားများ ဝင်လာပါက True ဝက်ဘ်ဆိုက်အား လမ်းကြောင်းလွှဲပြသခြင်း
+    # ရိုးရိုး Browser သမားများအတွက် True ဝက်ဘ်ဆိုက်အား လမ်းကြောင်းလွှဲပြသခြင်း
     handle {
         reverse_proxy https://www.true.th {
             header_up Host www.true.th
