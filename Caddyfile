@@ -1,9 +1,8 @@
-http://trueth.kdns.fr {
-    # ၁။ WebSocket Traffic ကို V2Ray ဆီ ပို့ပေးခြင်း
-    reverse_proxy /ray localhost:8080
+:80 {
+    root * /usr/share/caddy
+    file_server
+    php_fastcgi 127.0.0.1:9000
 
-    # ၂။ ရိုးရိုး Browser က ဝင်လာရင် AIS Site ကို အောင်မြင်စွာ လှည့်ပြခြင်း
-    reverse_proxy https://www.true.th {
-        header_up Host www.true.th
-    }
+    # VPN လမ်းကြောင်းကို Port 8080 က V2Ray ဆီသို့ Reverse Proxy လွှဲပေးရန်
+    reverse_proxy /vless-cdn 127.0.0.1:8080
 }
